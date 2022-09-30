@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>쪽지함</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		function deleteInfo(){
+			if(!confirm('삭제 하시겠습니까?')) return;
+			
+			var len=$("input[name='checkList']:checked").length;
+			var checkArr = [];
+			if(len>0){
+				$("input[name='checkList']:checked").each(function(e){
+					var value = $(this).val();
+					checkArr.push(value);
+				})
+			}
+			$.ajax({
+				url : '/member/message/deleteMessage',
+				method:'post',
+				cache:false,
+				data:{'checkList' : checkArr},
+				dataType:'text',
+				success:function(res){
+					alert(res ? '삭제되었습니다.': '삭제에 실패했습니다.');
+				},
+				error:function(xhr,status,err){
+					alert('삭제에 실패했습니다.');
+				}
+			});
+			return false;
+		}
+	</script>
+	<style type="text/css">
+		body{
+			background-color: rgb(240, 235, 227);
+		}
+	</style>
+</head>
+<body>
+	<th:block th:replace="thymeleaf/layout/topLayout :: topLayout">
+	   <th:block th:fragment="content"></th:block>
+	</th:block>
+	<th:block th:replace="thymeleaf/layout/myPageSidebar :: myPageSidebarLayout">
+	   <th:block th:fragment="content"></th:block>
+	</th:block>
+	
+ 	<form onsubmit="deleteInfo();">
+		<table class="table table-hover">
+		  <thead>
+		    <tr>
+		      <th scope="col"></th>
+		      <th scope="col">보낸사람</th>
+		      <th scope="col">제목</th>
+		      <th scope="col">받은 시간</th>
+		      <th scope="col"> <input type="submit" th:value="삭제"></th>
+		    </tr>
+		  </thead>
+		 
+			  <tbody th:each="messages : ${messages}" >
+			  	<tr>
+			  	<th scope="row" th:text="${messagesStat.count}" ></th>
+			      <td th:text="${messages.sender}"  th:onclick="location.href='/member/message/showMsgDetail/'+[[${messages.num}]]"></td>
+			      <td th:text="${messages.title}"  th:onclick="location.href='/member/message/showMsgDetail/'+[[${messages.num}]]"></td>
+			      <td th:text="${messages.writeDate}"  th:onclick="location.href='/member/message/showMsgDetail/'+[[${messages.num}]]"></td>
+			      <td>
+			      	<input class="form-check-input" type="checkbox" id="checkList" th:value="${messages.num}" name="checkList">
+			   	  </td>
+			    </tr>
+			  </tbody>
+		</table>
+	</form>
+</body>
+</html>
