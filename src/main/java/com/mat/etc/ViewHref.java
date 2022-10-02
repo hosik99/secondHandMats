@@ -26,7 +26,7 @@ public class ViewHref {
 	
 	//마이페이지 관련 링크
 	private String myPageMain = "thymeleaf/myPage/myPageMain";
-	private String myPostsPage = "thymeleaf/smyPage/myPosts";
+	private String myPostsPage = "thymeleaf/myPage/myPosts";
 	private String updatePostFrom = "thymeleaf/myPage/updateFrom";
 
 	//게시판 관련

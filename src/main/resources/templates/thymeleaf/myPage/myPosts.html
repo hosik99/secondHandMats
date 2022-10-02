@@ -90,12 +90,12 @@
 			    <th scope="col" >제목</th>
 			    <th scope="col" >내용</th>
 			    <th scope="col" >날짜</th>
-			    <th scope="col" ></th>
+			    <th scope="col" >[[${myPosts.hasContent()}]]</th>
 			    <th scope="col" ></th>
 		    </tr>
 		  </thead>
-			  <tbody th:each="myPosts : ${myPosts}" >
-			  	<tr>
+			  <tbody th:if="${myPosts.hasContent()}">
+			  	<tr th:each="myPosts : ${myPosts}" >
 				  	<th scope="row" th:text="${myPostsStat.count}" ></th>
 				  	<td id="td_length" th:text="${myPosts.title}"  th:onclick="location.href='/member/post/showPostDetail/'+[[${myPosts.num}]]"></td>
 				  	<td id="td_length" th:text="${myPosts.contents}" th:onclick="location.href='/member/post/showPostDetail/'+[[${myPosts.num}]]"></td>
@@ -103,6 +103,11 @@
 				    <td><input id="delete_update_btn" type="button" th:value="수정" th:onclick="location.href='/member/mypage/updatePost/from/'+[[${myPosts.num}]]"></td>
 				    <td><input id="delete_update_btn" type="button" th:value="X" th:onclick="deletePost( '[[ ${myPosts.num} ]]' );"></td>
 			    </tr>
+			  </tbody>
+			  <tbody th:unless="${myPosts.hasContent()}">
+			  		<tr>
+			  			<th colspan="6">작성한 게시물이 없습니다.</th>
+			  		</tr>	
 			  </tbody>
 		</table>
 	</div>
