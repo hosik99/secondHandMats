@@ -56,7 +56,6 @@ public class SignUpController {
 	public ResponseEntity<Boolean> checkVerEmailCode(String emailCode,HttpSession session) {
 		Boolean check= false;
 		String randomCode = (String)session.getAttribute("randomCode");
-		randomCode = "112";
 		if(randomCode!=null && randomCode.equals(emailCode)){
 	        if(randomCode!=null) session.removeAttribute("randomCode");
 	        check = true;

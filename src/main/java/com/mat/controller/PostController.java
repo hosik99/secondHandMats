@@ -37,12 +37,6 @@ import com.mat.service.PostService;
 @RequestMapping("/member/post")
 public class PostController {
 	
-//	private String postFromPage = "thymeleaf/post/postUploadForm";
-//	private String errorPage = "thymeleaf/errPage/defaultError";
-//	private String saveSuccessPage = "thymeleaf/post/etc/savedSuccess";
-//	private String showPostsPage = "thymeleaf/post/showPosts";
-//	private String showPostDetailPage = "thymeleaf/post/showDetailPost";
-	
 	private List<String> imgTypeList = new ArrayList<>(Arrays.asList("jpg","png"));
 	
 	@Autowired
@@ -59,18 +53,18 @@ public class PostController {
 	
 	//게시물 저장
 	@PostMapping("/savePostInfo")
-	public String sendPostInfo(@Valid Post post,BindingResult result,Model model,
+	public String sendPostInfo(Post post,Model model,
 			@RequestParam("files")MultipartFile[] mfiles,@AuthenticationPrincipal SecurityUser principal) {
-		boolean checkFileType = checkFileType(mfiles);
-		if(result.hasErrors() || !checkFileType) {
-			model.addAttribute("checkFilType",checkFileType);
-			return viewHref.getPostFromPage();
-		}
+//		boolean checkFileType = checkFileType(mfiles);
+//		if(result.hasErrors() || !checkFileType) {
+//			model.addAttribute("checkFilType",checkFileType);
+//			return viewHref.getPostFromPage();
+//		}
 		post.setWriter(principal.getUsername());
-		Long saved = svc.savePostInfo(post,mfiles);
-		
-		if(saved!=null) return viewHref.getSaveSuccessPage();
-		return viewHref.getErrorPage();
+		Boolean saved = svc.savePostInfo(post,mfiles);
+//		if(saved!=null) return viewHref.getSaveSuccessPage();
+//		return viewHref.getErrorPage();
+		return saved+"";
 	}
 	
 	@GetMapping("/showPosts")
@@ -97,14 +91,14 @@ public class PostController {
 	
 	
 	//method
-	private boolean checkFileType(MultipartFile[] mfiles) {
-		for(MultipartFile file : mfiles) {
-			String orignName = file.getOriginalFilename();
-			String fileType =null;
-			if(!file.isEmpty()) fileType = orignName.substring(orignName.length()-3);
-			if( fileType==null || !imgTypeList.contains(fileType)) return false;
-		}
-		return true;
-	}
+//	private boolean checkFileType(MultipartFile[] mfiles) {
+//		for(MultipartFile file : mfiles) {
+//			String orignName = file.getOriginalFilename();
+//			String fileType =null;
+//			if(!file.isEmpty()) fileType = orignName.substring(orignName.length()-3);
+//			if( fileType==null || !imgTypeList.contains(fileType)) return false;
+//		}
+//		return true;
+//	}
 	
 }

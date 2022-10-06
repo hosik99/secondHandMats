@@ -32,13 +32,12 @@ public class EmailManager {
 		try {
 	         InternetAddress[] addressTo = new InternetAddress[1];
 	         addressTo[0] = new InternetAddress(memberEmail);
-
 	         mimeMessage.setRecipients(Message.RecipientType.TO, addressTo);
 	         mimeMessage.setSubject("한돗 이메일 인증");
 	         mimeMessage.setContent("<div>한돗 이메일 인증 번호</div><h3>"+randomCode+"</h3><div>회원가입 이메일 인증번호에 입력해주세요</div>", "text/html;charset=utf-8");
 	         sender.send(mimeMessage);
 	      }catch (MessagingException e) {
-	         log.error("에러={}", e);
+	    	  System.out.println(e);
 	         return false;
 	      }
 	      return true;

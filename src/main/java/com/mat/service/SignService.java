@@ -24,6 +24,7 @@ public class SignService {
 	private PasswordEncoder encoder;
 	
 	public boolean sendEmailPass(String memberEmail) {
+		
 		try {
 			emailMgr.sendEmailPass(memberEmail);
 			return true;
