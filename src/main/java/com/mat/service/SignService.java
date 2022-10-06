@@ -36,7 +36,6 @@ public class SignService {
 	public boolean addUser(Member member) {
 		String originPw = member.getPassword();
 		member.setPassword(encoder.encode(originPw));
-		member.setRole(Role.ROLE_MEMBER);
 		Member savedUser = memberRPS.save(member);
 		boolean saved = savedUser!=null ? true : false;
 		return saved;

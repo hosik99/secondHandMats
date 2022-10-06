@@ -24,9 +24,6 @@ import com.mat.service.SignService;
 @RequestMapping("/sign")
 public class SignUpController {
 	
-//	private String signUpForm = "thymeleaf/signUp/signUpForm";
-//	private String signUpSuccess = "thymeleaf/signUp/etc/signUpSuccess";
-	
 	@Autowired
 	private ViewHref viewHref;
 	@Autowired
@@ -40,17 +37,11 @@ public class SignUpController {
 	}
 	
 	//회원가입 
-	@PostMapping("/signUp/form")
-	public String signUpForm(@Valid Member member,BindingResult result,Model model,HttpSession session,@RequestParam("verEmailCode")String verEmailCode) {
-		String randomCode = (String)session.getAttribute("randomCode");
-		if(result.hasErrors()) return viewHref.getSignUpForm();
-		if(randomCode!=null && randomCode.equals(verEmailCode)){
-			boolean saved = svc.addUser(member);
-			Object obj = session.getAttribute("randomCode");
-	        if(obj!=null) session.removeAttribute("randomCode");
-	        return viewHref.getSignUpSuccess();
-		}
-		return viewHref.getSignUpForm();
+	@PostMapping("/signUp")
+	public ResponseEntity<Boolean> signUpForm(Member member) {
+		boolean saved = svc.addUser(member);
+//		return viewHref.getSignUpSuccess();
+		return new ResponseEntity<Boolean>(saved, HttpStatus.OK); 
 	}
 		
 	//(회원가입) 이메일 인증 코드 보내는 메소드
@@ -58,5 +49,23 @@ public class SignUpController {
 	public ResponseEntity<Boolean> sendEmailPass(@PathVariable("memberEmail")String memberEmail) {
 		boolean sended = svc.sendEmailPass(memberEmail);
 		return new ResponseEntity<Boolean>(sended, HttpStatus.OK); 
+	}
+	
+	//이메일 인증 코드 비교
+	@PostMapping("/check/emailCode")
+	public ResponseEntity<Boolean> checkVerEmailCode(String emailCode,HttpSession session) {
+		Boolean check= false;
+		String randomCode = (String)session.getAttribute("randomCode");
+		randomCode = "112";
+		if(randomCode!=null && randomCode.equals(emailCode)){
+	        if(randomCode!=null) session.removeAttribute("randomCode");
+	        check = true;
+		}
+		return new ResponseEntity<Boolean>(check, HttpStatus.OK); 
+	}
+	
+	@GetMapping("/signUp/success")
+	public String signUpSuccess() {
+		return viewHref.getSignUpSuccess();
 	}
 }

@@ -26,6 +26,7 @@ import lombok.ToString;
 @Entity
 @Table(name="MEMBER")
 public class Member { 
+	
 	@Id 
 	@Column(name="MEMBER_ID")
 	@NotEmpty
@@ -41,7 +42,7 @@ public class Member {
 	private String memberEmail;
 	
 	@Enumerated(EnumType.STRING)
-	private Role role;
+	private Role role = Role.ROLE_MEMBER;
 	
 	private boolean enabled;
 	

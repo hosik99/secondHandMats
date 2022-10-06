@@ -26,8 +26,6 @@ import com.mat.service.PostService;
 @RequestMapping("/index")
 public class MainController {
 	
-//	private String indexPage = "thymeleaf/index";
-	
 	@Autowired
 	private ViewHref viewHref;
 	@Autowired
