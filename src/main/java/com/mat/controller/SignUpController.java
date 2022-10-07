@@ -60,6 +60,7 @@ public class SignUpController {
 	        if(randomCode!=null) session.removeAttribute("randomCode");
 	        check = true;
 		}
+		System.out.println("check: "+check);
 		return new ResponseEntity<Boolean>(check, HttpStatus.OK); 
 	}
 	

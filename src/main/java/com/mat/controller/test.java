@@ -34,13 +34,14 @@ public class test {
 		repository.save(member);
 	}
 	
-	@GetMapping("/insertPosts")
+	@GetMapping("/ll")
 	public void insertPosts() {
 		Member member = new Member();
-		member.setMemberId("123");
-		member.setName("aa");
+		member.setMemberId("11");
+		member.setMemberEmail("11@11.com");
+		member.setName("11");
 		member.setEnabled(false);
-		member.setPassword(encoder.encode("123"));
+		member.setPassword(encoder.encode("11"));
 		member.setRole(Role.ROLE_ADMIN);
 		repository.save(member);
 	}

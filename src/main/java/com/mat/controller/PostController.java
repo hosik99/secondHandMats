@@ -37,7 +37,7 @@ import com.mat.service.PostService;
 @RequestMapping("/member/post")
 public class PostController {
 	
-	private List<String> imgTypeList = new ArrayList<>(Arrays.asList("jpg","png"));
+	private List<String> imgTypeList = new ArrayList<>(Arrays.asList("jpg","png","jfif"));
 	
 	@Autowired
 	private ViewHref viewHref;
@@ -53,15 +53,17 @@ public class PostController {
 	
 	//게시물 저장
 	@PostMapping("/savePostInfo")
-	public String sendPostInfo(Post post,Model model,
-			@RequestParam("files")MultipartFile[] mfiles,@AuthenticationPrincipal SecurityUser principal) {
+	public String sendPostInfo(@RequestParam("post")Post post,Model model,
+			MultipartFile[] files,@AuthenticationPrincipal SecurityUser principal) {
 //		boolean checkFileType = checkFileType(mfiles);
 //		if(result.hasErrors() || !checkFileType) {
 //			model.addAttribute("checkFilType",checkFileType);
 //			return viewHref.getPostFromPage();
 //		}
+		System.out.println("post: "+post.toString());
+		System.out.println("files : "+files.toString());
 		post.setWriter(principal.getUsername());
-		Boolean saved = svc.savePostInfo(post,mfiles);
+		Boolean saved = svc.savePostInfo(post,files);
 //		if(saved!=null) return viewHref.getSaveSuccessPage();
 //		return viewHref.getErrorPage();
 		return saved+"";
