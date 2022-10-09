@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mat.etc.ViewHref;
 import com.mat.model.Member;
@@ -64,6 +65,15 @@ public class SignUpController {
 		return new ResponseEntity<Boolean>(check, HttpStatus.OK); 
 	}
 	
+	//이미 존재하는 아이디인지 확인
+	@PostMapping("/exists/memberId")
+	@ResponseBody
+	public Boolean existsByMemberId(@RequestParam("memberId")String memberId) {
+		System.out.println("memberId: "+memberId);
+		return svc.existsByMemberId(memberId);
+	}
+	
+	//로그인 성공 시 보여질 페이지로 이동
 	@GetMapping("/signUp/success")
 	public String signUpSuccess() {
 		return viewHref.getSignUpSuccess();

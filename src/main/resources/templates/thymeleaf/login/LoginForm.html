@@ -11,9 +11,13 @@
 			width:80%;
 			padding:30px;
 		}
+		#errorMsg{
+			color: red;
+		}
 	</style>
 </head>
 <body>
+	
 	<div id="box_style">
 		<form method="post">
 			<div class="mb-3">
@@ -24,8 +28,9 @@
 			  <label for="exampleFormControlTextarea1" class="form-label" th:text="비밀번호"></label>
 			  <input type="text" class="form-control" name="password" placeholder="password">
 			</div>
+			<div th:if=${error} id="errorMsg">정보가 올바르지 않습니다.</div>
 			<input type="submit" class="btn btn-light" th:value="로그인">
-			<input type="button" class="btn btn-light" th:value="취소" th:onclick="location.href='/index/indexFrom'">
+			<input type="button" class="btn btn-light" th:value="취소" th:onclick="location.href='/index/indexForm'">
 		</form>
 		<hr>
 		<input type="button" class="btn btn-light" th:value="회원가입" th:onclick="location.href='/sign/signUp/form'">

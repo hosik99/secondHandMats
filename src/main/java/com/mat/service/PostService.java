@@ -27,12 +27,11 @@ public class PostService {
 	@Autowired
 	private PostImgRepository imgRepository;
 	
-	public Boolean savePostInfo(Post post,MultipartFile[] mfiles) {
+	public Long savePostInfo(Post post,MultipartFile[] mfiles) {
 		Post post_1 = postRepository.save(post);
 		List<PostImages> imageList = addFileToList(mfiles,post);
 		if(imageList!=null) imgRepository.saveAll(imageList);
-		System.out.println("awdwad: "+post_1.getNum() != null);
-		return post_1.getNum() != null;
+		return post_1.getNum();
 	}
 	
 

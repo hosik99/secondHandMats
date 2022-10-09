@@ -24,7 +24,6 @@ public class SignService {
 	private PasswordEncoder encoder;
 	
 	public boolean sendEmailPass(String memberEmail) {
-		
 		try {
 			emailMgr.sendEmailPass(memberEmail);
 			return true;
@@ -42,4 +41,7 @@ public class SignService {
 		return saved;
 	}
 	
+	public boolean existsByMemberId(String username) {
+		return memberRPS.existsByMemberId(username);
+	}
 }

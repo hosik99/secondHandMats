@@ -33,7 +33,7 @@ public class MainController {
 	@Autowired
 	private MesaageService messageSVC;
 	
-	@GetMapping("/indexFrom")
+	@GetMapping("/indexForm")
 	public String main(Model model,@PageableDefault(size=6,sort="num",direction = Sort.Direction.DESC) Pageable pageable,
 			@AuthenticationPrincipal() SecurityUser principal) {
 		Page<Post> posts = postSVC.showPosts(pageable);

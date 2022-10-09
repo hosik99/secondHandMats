@@ -11,7 +11,35 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 	<script type="text/javascript">
 		var emailChecked = false;
-	
+		var memberIdCheck = false;
+		
+		/*이미 존재하는 아이디인지 확인*/
+		function existsByMemberId() {
+			var memberId = $('#memberId').val();
+			if(memberId.trim()=='') return alert('아이디를 입력해 주세요.');
+			var text;
+			$.ajax({
+				url : '/sign/exists/memberId',
+				method:'post',
+				cache:false,
+				data: {'memberId':memberId},
+				dataType:'json',
+				success:function(res){
+					if(res){
+						alert('이미 존재하는 아이디입니다.');
+					}else{
+						alert('사용 가능한 아이디입니다.');
+						memberIdCheck = true;
+						
+					}
+				},
+				error:function(xhr,status,err){
+					alert('문제가 발생했습니다. 재접속 해주세요.');
+				}
+			});
+			return;
+		};
+
 		/*이메일 인증코드 전송 메소드*/
 		function emailCer(){
 			var memberEmail = $('#memberEmail').val();
@@ -117,10 +145,8 @@
 				    
 					/* 유효성 검사를 통과시 전송 */
 			      	submitHandler: function (form){
-			      		if(!emailChecked) {
-			      			alert('이메일을 인증해주세요.');
-			      			return;
-			      		}
+			      		if(!emailChecked) return alert('이메일을 인증해주세요.');
+			      		if(!memberIdCheck) return alert('아이디를 확인해주세요.');
 			      		var data = $('#fromData').serialize();
 			      		$.ajax({
 							url : '/sign/signUp',
@@ -159,7 +185,8 @@
 	 
 	<form id="fromData">
 		<div class="mb-3">
-		 	<input type="text" class="form-control" id="exampleFormControlInput1 memberId" name="memberId" placeholder="아이디">
+		 	<input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디">
+			<button type="button" class="btn btn-outline-dark" onclick='existsByMemberId();'>아이디 확인</button>
 		</div>
 		<div class="mb-3">
 		 	<input type="text" class="form-control" id="exampleFormControlInput1 name" name="name" placeholder="이름">
@@ -185,7 +212,7 @@
 		<hr>
 		<div>
 			<button type="submit" class="btn btn-outline-dark">회원가입 하기</button>
-			<button type="button" class="btn btn-outline-dark" th:onclick="location.href='/index/indexFrom'">취소</button>
+			<button type="button" class="btn btn-outline-dark" th:onclick="location.href='/index/indexForm'">취소</button>
 		</div>
 	</form>
 	

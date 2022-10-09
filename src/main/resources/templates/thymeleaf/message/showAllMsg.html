@@ -24,9 +24,11 @@
 				method:'post',
 				cache:false,
 				data:{'checkList' : checkArr},
-				dataType:'text',
+				dataType:'json',
 				success:function(res){
 					alert(res ? '삭제되었습니다.': '삭제에 실패했습니다.');
+					location.reload();
+					
 				},
 				error:function(xhr,status,err){
 					alert('삭제에 실패했습니다.');

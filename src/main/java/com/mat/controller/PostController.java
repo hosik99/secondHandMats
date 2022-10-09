@@ -53,20 +53,18 @@ public class PostController {
 	
 	//게시물 저장
 	@PostMapping("/savePostInfo")
-	public String sendPostInfo(@RequestParam("post")Post post,Model model,
-			MultipartFile[] files,@AuthenticationPrincipal SecurityUser principal) {
-//		boolean checkFileType = checkFileType(mfiles);
-//		if(result.hasErrors() || !checkFileType) {
-//			model.addAttribute("checkFilType",checkFileType);
-//			return viewHref.getPostFromPage();
-//		}
-		System.out.println("post: "+post.toString());
-		System.out.println("files : "+files.toString());
+	public String sendPostInfo(@Valid Post post,BindingResult result,Model model,
+			@RequestParam("files")MultipartFile[] mfiles,@AuthenticationPrincipal SecurityUser principal) {
+		boolean checkFileType = checkFileType(mfiles);
+		if(result.hasErrors() || !checkFileType) {
+			model.addAttribute("checkFilType",checkFileType);
+			return viewHref.getPostFromPage();
+		}
 		post.setWriter(principal.getUsername());
-		Boolean saved = svc.savePostInfo(post,files);
-//		if(saved!=null) return viewHref.getSaveSuccessPage();
-//		return viewHref.getErrorPage();
-		return saved+"";
+		Long saved = svc.savePostInfo(post,mfiles);
+		
+		if(saved!=null) return viewHref.getSaveSuccessPage();
+		return viewHref.getErrorPage();
 	}
 	
 	@GetMapping("/showPosts")
@@ -86,21 +84,21 @@ public class PostController {
 		if(post!=null) {
 			model.addAttribute("post",post);
 		}else {
-			//에러 페이지 -> "해당 게시물이 삭제되었거나 없는 게시물입니다."
+			viewHref.getNoPageError();
 		}
 		return viewHref.getShowPostDetailPage();
 	}
 	
 	
 	//method
-//	private boolean checkFileType(MultipartFile[] mfiles) {
-//		for(MultipartFile file : mfiles) {
-//			String orignName = file.getOriginalFilename();
-//			String fileType =null;
-//			if(!file.isEmpty()) fileType = orignName.substring(orignName.length()-3);
-//			if( fileType==null || !imgTypeList.contains(fileType)) return false;
-//		}
-//		return true;
-//	}
+	private boolean checkFileType(MultipartFile[] mfiles) {
+		for(MultipartFile file : mfiles) {
+			String orignName = file.getOriginalFilename();
+			String fileType =null;
+			if(!file.isEmpty()) fileType = orignName.substring(orignName.length()-3);
+			if( fileType==null || !imgTypeList.contains(fileType)) return false;
+		}
+		return true;
+	}
 	
 }

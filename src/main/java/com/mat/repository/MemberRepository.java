@@ -7,4 +7,6 @@ import com.mat.model.Member;
 
 
 public interface MemberRepository extends JpaRepository<Member, String> {
+
+	Boolean existsByMemberId(String username);
 }

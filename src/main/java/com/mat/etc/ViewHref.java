@@ -37,5 +37,7 @@ public class ViewHref {
 	
 	//에러 페이지
 	private String errorPage = "thymeleaf/errPage/defaultError";
+	private String noPageError = "thymeleaf/errPage/noPageError";
+
 	
 }

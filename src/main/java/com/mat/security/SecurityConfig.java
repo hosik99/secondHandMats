@@ -24,16 +24,21 @@ public class SecurityConfig{
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		http.userDetailsService(userDetailsService);
 
-		http.authorizeRequests().antMatchers(passPage).permitAll();	//모든 이용자
-		http.authorizeRequests().antMatchers("/member/**").authenticated(); //인증 통과 사용자만
-		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");	//인증 통과, ADMIN 권한만
-
-		http.csrf().disable();
-		http.formLogin().loginPage("/login/loginFrom").defaultSuccessUrl("/index/indexFrom", true);
-		http.logout().logoutUrl("/login/logout").invalidateHttpSession(true).logoutSuccessUrl("/index/indexFrom");
-		http.exceptionHandling().accessDeniedPage("/");	//액세스 거부 페이지
-	
-		return http.build();
+		return http.authorizeRequests().antMatchers(passPage).permitAll()	//모든 이용자
+			.antMatchers("/member/**").authenticated() //인증 통과 사용자만
+			.antMatchers("/admin/**").hasRole("ADMIN")	//인증 통과, ADMIN 권한만
+			.and()
+			
+			.csrf().disable()
+			.formLogin().loginPage("/login/loginFrom").defaultSuccessUrl("/index/indexForm", true)
+			.failureUrl("/login/loginFrom?error=True")
+			.and()
+			
+			.logout().logoutUrl("/login/logout").invalidateHttpSession(true).logoutSuccessUrl("/index/indexForm")
+			.and()
+			
+			.exceptionHandling().accessDeniedPage("/")	//액세스 거부 페이지
+			.and().build();
 	}
 	
 	@Bean
