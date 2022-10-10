@@ -26,12 +26,6 @@ public class MyPageAop {
 	@Autowired
 	private MesaageService mesaageService;
 	
-//	@AfterReturning("execution(* com.mat.controller.MyPageController.*(..))") 
-//    public void before(Model model,@AuthenticationPrincipal SecurityUser principal){
-//		Long unReadMsgCnt = mesaageService.unReadMsgCnt(principal.getUsername());
-//    	model.addAttribute("unReadMsgCnt",unReadMsgCnt);
-//    }
-	
 	@AfterReturning("execution(* com.mat.controller.MyPageController.*(..))") 
     public void before(){
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();

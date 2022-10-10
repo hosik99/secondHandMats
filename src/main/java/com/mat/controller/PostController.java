@@ -95,7 +95,7 @@ public class PostController {
 		for(MultipartFile file : mfiles) {
 			String orignName = file.getOriginalFilename();
 			String fileType =null;
-			if(!file.isEmpty()) fileType = orignName.substring(orignName.length()-3);
+			if(!file.isEmpty()) fileType = orignName.substring(orignName.lastIndexOf(".")+1);
 			if( fileType==null || !imgTypeList.contains(fileType)) return false;
 		}
 		return true;

@@ -25,10 +25,6 @@ import com.mat.service.MesaageService;
 @RequestMapping("/member/message")
 public class MessageController {
 	
-//	private String msgSendFrom = "thymeleaf/message/messageSendFrom";
-//	private String showAllMsg = "thymeleaf/message/showAllMsg";
-//	private String showMsgDetail = "thymeleaf/message/showMessageDetail";
-	
 	@Autowired
 	private ViewHref viewHref;
 	@Autowired
@@ -44,7 +40,7 @@ public class MessageController {
 	
 	//메세지 입력 폼에서 보내기 클릭 -> 메세지 저장
 	@PostMapping("/saveMsg")
-	@ResponseBody
+	@ResponseBody		
 	public String saveMsg(@Valid Message message,BindingResult result,Model model,
 			@AuthenticationPrincipal SecurityUser principal) {
 		if(result.hasErrors()) return viewHref.getMsgSendFrom();
