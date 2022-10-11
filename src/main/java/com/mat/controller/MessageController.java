@@ -25,8 +25,10 @@ import com.mat.service.MesaageService;
 @RequestMapping("/member/message")
 public class MessageController {
 	
-	@Autowired
-	private ViewHref viewHref;
+	private final String MSG_SEND_FORM = "thymeleaf/message/messageSendFrom";
+	private final String SHOW_ALL_MSG = "thymeleaf/message/showAllMsg";
+	private final String SHOW_MSG_DETAIL = "thymeleaf/message/showMessageDetail";
+	
 	@Autowired
 	private MesaageService messageSVC;
 	
@@ -35,7 +37,7 @@ public class MessageController {
 	public String msgSendFrom(Model model,@AuthenticationPrincipal() SecurityUser principal) {
 		model.addAttribute("message",new Message());
 		messageCnt(principal,model);
-		return viewHref.getMsgSendFrom();
+		return MSG_SEND_FORM;
 	}
 	
 	//메세지 입력 폼에서 보내기 클릭 -> 메세지 저장
@@ -43,7 +45,7 @@ public class MessageController {
 	@ResponseBody		
 	public String saveMsg(@Valid Message message,BindingResult result,Model model,
 			@AuthenticationPrincipal SecurityUser principal) {
-		if(result.hasErrors()) return viewHref.getMsgSendFrom();
+		if(result.hasErrors()) return MSG_SEND_FORM;
 		message.setSender(principal.getUsername());
 		Boolean saved = messageSVC.saveMessage(message);
 		return saved+"";
@@ -55,7 +57,7 @@ public class MessageController {
 		List<Message> messages = messageSVC.showAllMsg(principal.getUsername());
 		model.addAttribute("messages",messages);
 		messageCnt(principal,model);
-		return viewHref.getShowAllMsg();
+		return SHOW_ALL_MSG;
 	}
 		
 	//메세지 상세보기
@@ -65,7 +67,7 @@ public class MessageController {
 		Message message = messageSVC.showMsgDetail(messagesNum);
 		model.addAttribute("message",message);
 		messageCnt(principal,model);
-		return viewHref.getShowMsgDetail();
+		return SHOW_MSG_DETAIL;
 	}
 	
 	//메세지 삭제

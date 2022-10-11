@@ -15,14 +15,13 @@ import com.mat.etc.ViewHref;
 @RequestMapping("/login")
 public class LoginController {
 	
-	@Autowired
-	private ViewHref viewHref;
+	private final String LGIN_FORM_PAGE = "thymeleaf/login/loginForm";
 	
 	@GetMapping("/loginFrom")
 	public String showLoginFrom(@RequestParam(value="error",required = false)String error,
 			@RequestParam(value="username",required = false)String username,Model model) {
 		if(error!=null) model.addAttribute("error","True");
-		return viewHref.getLoginFromPage();
+		return LGIN_FORM_PAGE;
 	}
 
 	@GetMapping("/logout")

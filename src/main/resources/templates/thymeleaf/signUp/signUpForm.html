@@ -184,9 +184,9 @@
 	<hr>
 	 
 	<form id="fromData">
-		<div class="mb-3">
-		 	<input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디">
-			<button type="button" class="btn btn-outline-dark" onclick='existsByMemberId();'>아이디 확인</button>
+		<div class="input-group mb-3">
+		  <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디">
+		  <button class="btn btn-outline-secondary" type="button" onclick='existsByMemberId();'>아이디 확인</button>
 		</div>
 		<div class="mb-3">
 		 	<input type="text" class="form-control" id="exampleFormControlInput1 name" name="name" placeholder="이름">
@@ -197,18 +197,15 @@
 		<div class="mb-3">
 			<input type="password" class="form-control" id="cerPassword" name="cerPassword" placeholder="비밀번호 확인">
 		</div>
-		<div class="mb-3">
-			<input type="email" class="form-control" id="memberEmail" name="memberEmail" placeholder="이메일">
+		
+		<div class="input-group mb-3">
+		  <input type="email" class="form-control" id="memberEmail" name="memberEmail" placeholder="이메일">
+		  <button class="btn btn-outline-secondary" type="button" onclick='emailCer();'>인증번호 받기</button>
 		</div>
-		
-		<button type="button" class="btn btn-outline-dark" onclick='emailCer();'>인증번호 받기</button>
-		
-		<div class="mb-3">
-		 	<input type="text" class="form-control ignore" id="emailCode" placeholder="이메일 인증번호">
+		<div class="input-group mb-3">
+		  <input type="text" class="ignore form-control" id="emailCode" placeholder="이메일 인증번호">
+		  <button class="btn btn-outline-secondary" type="button" onclick='emailCodeCer();'>인증번호 확인</button>
 		</div>
-		
-		<button type="button" class="btn btn-outline-dark" onclick='emailCodeCer();'>인증번호 확인</button>
-		
 		<hr>
 		<div>
 			<button type="submit" class="btn btn-outline-dark">회원가입 하기</button>

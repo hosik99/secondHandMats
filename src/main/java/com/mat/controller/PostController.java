@@ -37,10 +37,13 @@ import com.mat.service.PostService;
 @RequestMapping("/member/post")
 public class PostController {
 	
+	private final String POST_FORM_PAGE = "thymeleaf/post/postUploadForm";
+	private final String SAVE_SUCCESS_PAGE = "thymeleaf/post/etc/savedSuccess";
+	private final String SHOW_POSTS_PAGE = "thymeleaf/post/showPosts";
+	private final String SHOW_POST_DETAIL_PAGE = "thymeleaf/post/showDetailPost";
+
 	private List<String> imgTypeList = new ArrayList<>(Arrays.asList("jpg","png","jfif"));
 	
-	@Autowired
-	private ViewHref viewHref;
 	@Autowired
 	private PostService svc;
 	
@@ -48,23 +51,23 @@ public class PostController {
 	@GetMapping("/postForm")
 	public String postForm(Model model) {
 		model.addAttribute("post",new Post());
-		return viewHref.getPostFromPage();
+		return POST_FORM_PAGE;
 	}
 	
 	//게시물 저장
 	@PostMapping("/savePostInfo")
 	public String sendPostInfo(@Valid Post post,BindingResult result,Model model,
-			@RequestParam("files")MultipartFile[] mfiles,@AuthenticationPrincipal SecurityUser principal) {
+			@RequestParam("files")MultipartFile[] mfiles,@AuthenticationPrincipal SecurityUser principal) throws Exception {
 		boolean checkFileType = checkFileType(mfiles);
 		if(result.hasErrors() || !checkFileType) {
 			model.addAttribute("checkFilType",checkFileType);
-			return viewHref.getPostFromPage();
+			return POST_FORM_PAGE;
 		}
 		post.setWriter(principal.getUsername());
 		Long saved = svc.savePostInfo(post,mfiles);
 		
-		if(saved!=null) return viewHref.getSaveSuccessPage();
-		return viewHref.getErrorPage();
+		if(saved!=null) return SAVE_SUCCESS_PAGE;
+		throw new Exception("Post JPA 저장 에러발생");
 	}
 	
 	@GetMapping("/showPosts")
@@ -75,18 +78,18 @@ public class PostController {
 		model.addAttribute("pageableHref","/member/post/showPosts?page=");
 		model.addAttribute("pageList",pageList);
 		model.addAttribute("LastIndexOfpage",pageList.size()-1);
-		return viewHref.getShowPostsPage();
+		return SHOW_POSTS_PAGE;
 	}
 	
 	@GetMapping("/showPostDetail/{postNum}")
-	public String showPostDetail(Model model,@PathVariable("postNum")Long postnum) {
+	public String showPostDetail(Model model,@PathVariable("postNum")Long postnum) throws Exception {
 		Post post = svc.findById(postnum);
 		if(post!=null) {
 			model.addAttribute("post",post);
 		}else {
-			viewHref.getNoPageError();
+			throw new Exception("Post 존재하지 않거나 삭제된 게시물 검색");
 		}
-		return viewHref.getShowPostDetailPage();
+		return SHOW_POST_DETAIL_PAGE;
 	}
 	
 	

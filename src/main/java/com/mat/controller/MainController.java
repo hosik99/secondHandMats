@@ -26,8 +26,8 @@ import com.mat.service.PostService;
 @RequestMapping("/index")
 public class MainController {
 	
-	@Autowired
-	private ViewHref viewHref;
+	private final String INDEX_PAGE = "thymeleaf/index";
+	
 	@Autowired
 	private PostService postSVC;
 	@Autowired
@@ -42,6 +42,6 @@ public class MainController {
 			Long messageCnt = messageSVC.unReadMsgCnt(principal.getUsername());
 			model.addAttribute("messageCnt",messageCnt);
 		}
-		return viewHref.getIndexPage();
+		return INDEX_PAGE;
 	}
 }

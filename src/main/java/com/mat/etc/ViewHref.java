@@ -30,11 +30,11 @@ public class ViewHref {
 	private String updatePostFrom = "thymeleaf/myPage/updateFrom";
 
 	//게시판 관련
-	private String postFromPage = "thymeleaf/post/postUploadForm";
-	private String saveSuccessPage = "thymeleaf/post/etc/savedSuccess";
-	private String showPostsPage = "thymeleaf/post/showPosts";
-	private String showPostDetailPage = "thymeleaf/post/showDetailPost";
-	
+	private final String POST_FORM_PAGE = "thymeleaf/post/postUploadForm";
+	private final String SAVE_SUCCESS_PAGE = "thymeleaf/post/etc/savedSuccess";
+	private final String SHOW_POSTS_PAGE = "thymeleaf/post/showPosts";
+	private final String SHOW_POST_DETAIL_PAGE = "thymeleaf/post/showDetailPost";
+
 	//에러 페이지
 	private String errorPage = "thymeleaf/errPage/defaultError";
 	private String noPageError = "thymeleaf/errPage/noPageError";

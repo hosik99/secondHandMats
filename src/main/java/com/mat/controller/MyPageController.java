@@ -24,15 +24,17 @@ import com.mat.service.PostService;
 @RequestMapping("/member/mypage")
 public class MyPageController {
 	
-	@Autowired
-	private ViewHref viewHref;
+	private final String MYPAGE_MAIN = "thymeleaf/myPage/myPageMain";
+	private final String MY_POSTS_PAGE = "thymeleaf/myPage/myPosts";
+	private final String UPDATE_POST_FORM = "thymeleaf/myPage/updateFrom";
+	
 	@Autowired
 	private PostService postSVC;
 	
 	//개인 페이지 이동
 	@GetMapping("/main")
 	public String myPageMain() {
-		return viewHref.getMyPageMain();
+		return MYPAGE_MAIN;
 	}
 	
 	//개인페이지 -> 게시물 관리 -> 내가 올린 게시물 클릭
@@ -41,7 +43,7 @@ public class MyPageController {
 			@PageableDefault(size=6,sort="num",direction = Sort.Direction.DESC) Pageable pageable) {
 		Page<Post> myPosts = postSVC.getMyPosts(principal.getUsername(),pageable);
 		model.addAttribute("myPosts",myPosts);
-		return viewHref.getMyPostsPage();
+		return MY_POSTS_PAGE;
 	}
 	
 	//개인페이지 -> 게시물 관리 -> 내가 올린 게시물 -> 게시물 삭제
@@ -57,7 +59,7 @@ public class MyPageController {
 	public String updatePostFrom(@PathVariable("postNum")Long postNum,Model model) {
 		Post post = postSVC.findById(postNum);
 		model.addAttribute("post",post);
-		return viewHref.getUpdatePostFrom();
+		return UPDATE_POST_FORM;
 	}
 	
 	//개인페이지 -> 게시물 관리 -> 내가 올린 게시물 -> 게시물 수정 폼 -> 이미지 삭제
