@@ -40,6 +40,25 @@
 		body{
 			background-color: rgb(240, 235, 227);
 		}
+		#fir_tr{
+			background: rgb(87, 111, 114);
+		}
+		#fir_table{
+			text-align:center;
+			color: rgb(247, 226, 214);
+			background: rgb(125, 157, 156);
+			border-radius: 1px;
+			table-layout: fixed; 
+			width:1000px;
+			float: left;
+			
+		}
+		#delete_btn{
+			color: rgb(247, 226, 214);
+			background: rgb(87, 111, 114);
+			border: 0;
+			outline:0;
+		}
 	</style>
 </head>
 <body>
@@ -49,30 +68,32 @@
 	<th:block th:replace="thymeleaf/layout/myPageSidebar :: myPageSidebarLayout">
 	   <th:block th:fragment="content"></th:block>
 	</th:block>
- 	<form onsubmit="deleteInfo();">
-		<table class="table table-hover">
-		  <thead>
-		    <tr>
-		      <th scope="col"></th>
-		      <th scope="col">보낸사람</th>
-		      <th scope="col">제목</th>
-		      <th scope="col">받은 시간</th>
-		      <th scope="col"> <input type="submit" th:value="삭제"></th>
-		    </tr>
-		  </thead>
-		 
-			  <tbody th:each="messages : ${messages}" >
-			  	<tr>
-			  	<th scope="row" th:text="${messagesStat.count}" ></th>
-			      <td th:text="${messages.sender}"  th:onclick="location.href='/member/message/showMsgDetail/'+[[${messages.num}]]"></td>
-			      <td th:text="${messages.title}"  th:onclick="location.href='/member/message/showMsgDetail/'+[[${messages.num}]]"></td>
-			      <td th:text="${messages.writeDate}"  th:onclick="location.href='/member/message/showMsgDetail/'+[[${messages.num}]]"></td>
-			      <td>
-			      	<input class="form-check-input" type="checkbox" id="checkList" th:value="${messages.num}" name="checkList">
-			   	  </td>
+	<div style="width:1000px; float: left; padding: 30px;">
+	 	<form onsubmit="deleteInfo();">
+			<table id="fir_table" class="table table-hover">
+			  <thead>
+			    <tr id="fir_tr">
+			      <th scope="col"></th>
+			      <th scope="col">보낸사람</th>
+			      <th scope="col">제목</th>
+			      <th scope="col">받은 시간</th>
+			      <th scope="col"><input type="submit" id="delete_btn" th:value="삭제"></th>
 			    </tr>
-			  </tbody>
-		</table>
-	</form>
+			  </thead>
+			 
+				  <tbody th:each="messages : ${messages}" >
+				  	<tr>
+				  	<th scope="row" th:text="${messagesStat.count}" ></th>
+				      <td th:text="${messages.sender}"  th:onclick="location.href='/member/message/showMsgDetail/'+[[${messages.num}]]"></td>
+				      <td th:text="${messages.title}"  th:onclick="location.href='/member/message/showMsgDetail/'+[[${messages.num}]]"></td>
+				      <td th:text="${messages.writeDate}"  th:onclick="location.href='/member/message/showMsgDetail/'+[[${messages.num}]]"></td>
+				      <td>
+				      	<input class="form-check-input" type="checkbox" id="checkList" th:value="${messages.num}" name="checkList">
+				   	  </td>
+				    </tr>
+				  </tbody>
+			</table>
+		</form>
+	</div>
 </body>
 </html>

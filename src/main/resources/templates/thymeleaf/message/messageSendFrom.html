@@ -44,6 +44,7 @@
 	   <th:block th:fragment="content"></th:block>
 	</th:block>
 	
+	<div style="width:1000px; float: left; padding: 30px;">
 	<form id="messageInfo" method="post" th:object="${message}">
 		<div class="mb-3">
 		  <label for="exampleFormControlInput1" class="form-label">수신자</label>
@@ -62,5 +63,6 @@
 			<button type="button" class="btn btn-outline-dark" th:onclick="javascript:window.history.back();">취소</button>
 		</div>
 	</form>
+	</div>
 </body>
 </html>
