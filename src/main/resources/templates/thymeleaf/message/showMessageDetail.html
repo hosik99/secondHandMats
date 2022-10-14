@@ -7,7 +7,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 	<style type="text/css">
 		body{
-			background-color: rgb(240, 235, 227);
+			background-color: rgb(253, 238, 220);;
 		}
 	</style>
 </head>
@@ -19,33 +19,11 @@
 	   <th:block th:fragment="content"></th:block>
 	</th:block>
 	
-	<div class="container-sm">
-		<table class="table">
-		  <thead>
-		    <tr>
-		    </tr>
-		  </thead>
-		  <tbody>
-		    <tr>
-		      <td>제목</td>
-		      <td th:text="${message.title}"></td>
-		      <td></td>
-		    </tr>
-		    <tr>
-		      <td>보낸사람</td>
-		      <td th:text="${message.sender}"></td>
-		      <td></td>
-		    </tr>
-		   <tr>
-		      <td>글내용</td>
-		      <td></td>
-		      <td></td>
-		    </tr>
-		    <tr>
-		      <td colspan="3" th:text="${message.contents}"></td>
-		    </tr>
-		  </tbody>
-		</table>
+	<div style=" box-sizing: border-box; margin: 10px;">
+		<div th:text="'From.   '+${message.sender}"></div>
+		<hr>
+		<h3 th:text="${message.title}"></h3>
+		<h5 th:text="${message.contents}"></h5>
 	</div>
 </body>
 </html>
