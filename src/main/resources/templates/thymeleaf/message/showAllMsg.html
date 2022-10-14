@@ -62,6 +62,12 @@
 			border: 0;
 			outline:0;
 		}
+		#fir_title{
+			 overflow: hidden;  		
+			  text-overflow: ellipsis;  	
+			  white-space: nowrap; 		
+			  word-break:break-all
+		}
 	</style>
 </head>
 <body>
@@ -77,6 +83,7 @@
 			  <thead>
 			    <tr id="fir_tr">
 			      <th scope="col"></th>
+			      <th scope="col"></th>
 			      <th scope="col">보낸사람</th>
 			      <th scope="col">제목</th>
 			      <th scope="col">받은 시간</th>
@@ -86,14 +93,20 @@
 			 
 				  <tbody th:each="messages : ${messages}" >
 				  	<tr>
-				  	<th scope="row" th:text="${messagesStat.count}" ></th>
+				  	<th th:if="${messages.readed}==1">
+				  		<h6 style="color: red; font-weight: bold;">NEW</h6>
+				  	</th>
+				  	<th th:unless="${messages.readed}==1"></th>
+				  	
+				  	  <td scope="row" th:text="${messagesStat.count}" ></td>
 				      <td th:text="${messages.sender}"  th:onclick="location.href='/member/message/showMsgDetail/'+[[${messages.num}]]"></td>
-				      <td th:text="${messages.title}"  th:onclick="location.href='/member/message/showMsgDetail/'+[[${messages.num}]]"></td>
+				      <td id="fir_title" th:text="${messages.title}"  th:onclick="location.href='/member/message/showMsgDetail/'+[[${messages.num}]]"></td>
 				      <td th:text="${messages.writeDate}"  th:onclick="location.href='/member/message/showMsgDetail/'+[[${messages.num}]]"></td>
 				      <td>
 				      	<input class="form-check-input" type="checkbox" id="checkList" th:value="${messages.num}" name="checkList">
 				   	  </td>
 				    </tr>
+				    
 				  </tbody>
 			</table>
 		</form>

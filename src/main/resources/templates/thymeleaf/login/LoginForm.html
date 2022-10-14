@@ -26,7 +26,7 @@
 			</div>
 			<div class="mb-3">
 			  <label for="exampleFormControlTextarea1" class="form-label" th:text="비밀번호"></label>
-			  <input type="text" class="form-control" name="password" placeholder="password">
+			  <input type="password" class="form-control" name="password" placeholder="password">
 			</div>
 			<div th:if=${error} id="errorMsg">정보가 올바르지 않습니다.</div>
 			<input type="submit" class="btn btn-light" th:value="로그인">
