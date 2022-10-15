@@ -23,6 +23,7 @@ public class EmailManager {
 	@Autowired
 	private JavaMailSender sender;
 	
+	//상대 이메일에 인증코드 보내기
 	public boolean sendEmailPass(String memberEmail) throws MessagingException {
 		HttpSession session = ((ServletRequestAttributes)(RequestContextHolder.currentRequestAttributes())).getRequest().getSession();
 		String randomCode = getRandomText();
@@ -37,12 +38,12 @@ public class EmailManager {
 	         mimeMessage.setContent("<div>한돗 이메일 인증 번호</div><h3>"+randomCode+"</h3><div>회원가입 이메일 인증번호에 입력해주세요</div>", "text/html;charset=utf-8");
 	         sender.send(mimeMessage);
 	      }catch (MessagingException e) {
-	    	  System.out.println(e);
 	         return false;
 	      }
 	      return true;
 	}
 	
+	//인증코드 생성 메소드
 	private String getRandomText() {
 		UUID randomUUID = UUID.randomUUID();	
 		String randomCode = randomUUID.toString().replaceAll("-","");

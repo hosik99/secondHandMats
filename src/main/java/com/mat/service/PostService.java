@@ -1,7 +1,6 @@
 package com.mat.service;
 
 import java.io.File;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +26,7 @@ public class PostService {
 	@Autowired
 	private PostImgRepository imgRepository;
 	
+	//게시물 저장
 	public Long savePostInfo(Post post,MultipartFile[] mfiles) {
 		Post post_1 = postRepository.save(post);
 		List<PostImages> imageList = addFileToList(mfiles,post);
@@ -34,27 +34,26 @@ public class PostService {
 		return post_1.getNum();
 	}
 	
-
+	//모든 게시물 가져오기
 	public Page<Post> showPosts(Pageable pageable) {
 		Page<Post> posts =  postRepository.findAllUsedFetch(pageable);
-		for(Post post : posts) {
-			List<PostImages> list = post.getPostImages();
-		}
 		return posts;
 	}
 	
+	//게시물 상세보기
 	public Post findById(Long postnum) {
 		Optional<Post> post= postRepository.findById(postnum);
 		Post result = post.isPresent() ?  post.get() :  null;
 		return result;
 	}
 	
-
+	//내가 작성한 게시물 보가져오기
 	public Page<Post> getMyPosts(String writer,Pageable pageable) {
 		Page<Post> myPosts = postRepository.findByWriter(writer,pageable);
 		return myPosts;
 	}
 	
+	//게시물 삭제
 	public boolean deletePost(Long postNum) {
 		Boolean deleted;
 		try {
@@ -67,6 +66,7 @@ public class PostService {
 		return deleted;
 	}
 	
+	//게시물 이미지 삭제
 	public boolean deleteImgById(Long imgNum) {
 		Boolean deleted;
 		try {
@@ -79,7 +79,7 @@ public class PostService {
 		return deleted;
 	}
 	
-	/* method */
+	//사진 파일 저장
 	private List<PostImages> addFileToList(MultipartFile[] mfiles,Post post) {
 		String savePath = getSavePath()+"\\postImages";
 		
@@ -88,7 +88,7 @@ public class PostService {
 		try {
 			for(int i=0;i<mfiles.length;i++) {
 				
-				String orignName = mfiles[i].getOriginalFilename();	//원래 이름
+				String orignName = mfiles[i].getOriginalFilename();
 				int lastIdx = orignName.lastIndexOf("."); 
 				String orignName_1 = orignName.substring(0, lastIdx);
 				String orignName_2 = orignName.substring(lastIdx);
@@ -110,26 +110,25 @@ public class PostService {
 		}
 	}
 	
+	//저장경로 가져오는 메소드
 	public String getSavePath() {
-		//파일 저장 경로
 		String path = "src/main/resources/static";
 		File file = new File(path);
 		String savePath = file.getAbsolutePath();
 				
-		//파일 없으면 생성
 		File dir = new File(savePath+"/postImages");
 		if(dir.exists()==false) dir.mkdirs();
 		return savePath;
 	}
 
+	//view 하단에 보여줄 페이지 목록
 	public List<Integer> pageList(Pageable pageable) {
 		Long dataCount = postRepository.count();
 		int startNum = pageable.getPageNumber();
 		int size = pageable.getPageSize();
 		int pageCnt = (int)Math.ceil(dataCount/size);	
 		
-		//view 하단에 보여줄 페이지 목록
-		List<Integer> pageList = new ArrayList();
+		List<Integer> pageList = new ArrayList<Integer>();
 		int i= startNum-3;
 		while(pageList.size()<5) {
 			++i;

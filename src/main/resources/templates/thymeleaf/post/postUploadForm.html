@@ -14,10 +14,13 @@
 	</style>
 </head>
 <body>	
+	<!-- nav -->
 	<th:block th:replace="thymeleaf/layout/topLayout :: topLayout">
 	   <th:block th:fragment="content">
 	   </th:block>
 	</th:block>
+	
+	<!-- 게시물 정보입력 -->
 	<div id="box">
 		<form id="postInfo" th:object="${post}" method="post" action="/member/post/savePostInfo" enctype="multipart/form-data">
 			  <div class="mb-3 row">

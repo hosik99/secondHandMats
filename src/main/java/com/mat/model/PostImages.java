@@ -11,11 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -31,7 +27,8 @@ public class PostImages {
 	@Column(name="post_image_num")
 	private Long num;
 	
-	private String fpath;	//저장된 경로
+	//저장된 경로
+	private String fpath;	
 	
 	private Date udate = Date.valueOf(LocalDate.now());
 	

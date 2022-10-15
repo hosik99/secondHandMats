@@ -37,9 +37,8 @@
 		}
 	</script>
 	<style type="text/css">
-		body{
-			background-color: rgb(253, 238, 220);
-		}
+		body{background-color: rgb(253, 238, 220);}
+		
 		#fir_tr{
 			background:rgb(227, 139, 41);
 			font-weight: bold;
@@ -53,7 +52,6 @@
 			table-layout: fixed; 
 			width:1000px;
 			float: left;
-			
 		}
 		#delete_btn{
 			color:white;
@@ -71,12 +69,15 @@
 	</style>
 </head>
 <body>
+	<!-- nav, 사이드메뉴 -->
 	<th:block th:replace="thymeleaf/layout/topLayout :: topLayout">
 	   <th:block th:fragment="content"></th:block>
 	</th:block>
 	<th:block th:replace="thymeleaf/layout/myPageSidebar :: myPageSidebarLayout">
 	   <th:block th:fragment="content"></th:block>
 	</th:block>
+	
+	<!-- 메세지 목록 표시 -->
 	<div style="width:1000px; float: left; padding: 30px;">
 	 	<form onsubmit="deleteInfo();">
 			<table id="fir_table" class="table table-hover">

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mat.etc.ViewHref;
 import com.mat.model.Message;
 import com.mat.security.SecurityUser;
 import com.mat.service.MesaageService;
@@ -36,7 +35,6 @@ public class MessageController {
 	@GetMapping("/msgSendFrom")
 	public String msgSendFrom(Model model,@AuthenticationPrincipal() SecurityUser principal) {
 		model.addAttribute("message",new Message());
-		messageCnt(principal,model);
 		return MSG_SEND_FORM;
 	}
 	
@@ -56,7 +54,6 @@ public class MessageController {
 	public String showAllMsg(Model model,@AuthenticationPrincipal SecurityUser principal) {
 		List<Message> messages = messageSVC.showAllMsg(principal.getUsername());
 		model.addAttribute("messages",messages);
-		messageCnt(principal,model);
 		return SHOW_ALL_MSG;
 	}
 		
@@ -66,7 +63,6 @@ public class MessageController {
 			@AuthenticationPrincipal SecurityUser principal) {
 		Message message = messageSVC.showMsgDetail(messagesNum);
 		model.addAttribute("message",message);
-		messageCnt(principal,model);
 		return SHOW_MSG_DETAIL;
 	}
 	
@@ -76,15 +72,5 @@ public class MessageController {
 	public String deleteMessage(@RequestParam(value="checkList[]")Long[] checkList) {
 		Boolean deleted = messageSVC.deleteMessage(checkList);
 		return deleted+"";
-	}
-	
-	
-	/*----method----*/
-	// 읽지 않은 메세지 갯수를 model에 추가
-	public void messageCnt(SecurityUser principal,Model model) {
-		if( principal != null) {
-			Long messageCnt = messageSVC.unReadMsgCnt(principal.getUsername());
-			model.addAttribute("messageCnt",messageCnt);
-		}
 	}
 }

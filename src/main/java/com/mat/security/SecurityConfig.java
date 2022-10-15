@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
-@Configuration   //설정파일을 만들기 위한 애노테이션 or Bean을 등록하기 위한 애노테이션
+@Configuration   
 @EnableWebSecurity
 public class SecurityConfig{
 	
@@ -20,13 +20,12 @@ public class SecurityConfig{
 	private SecurityUserDetailsService userDetailsService;
 	
 	@Bean
-	//protected void configure(HttpSecurity security) throws Exception {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		http.userDetailsService(userDetailsService);
 
-		return http.authorizeRequests().antMatchers(passPage).permitAll()	//모든 이용자
-			.antMatchers("/member/**").authenticated() //인증 통과 사용자만
-			.antMatchers("/admin/**").hasRole("ADMIN")	//인증 통과, ADMIN 권한만
+		return http.authorizeRequests().antMatchers(passPage).permitAll()
+			.antMatchers("/member/**").authenticated()
+			.antMatchers("/admin/**").hasRole("ADMIN")	
 			.and()
 			
 			.csrf().disable()
@@ -37,7 +36,7 @@ public class SecurityConfig{
 			.logout().logoutUrl("/login/logout").invalidateHttpSession(true).logoutSuccessUrl("/index/indexForm")
 			.and()
 			
-			.exceptionHandling().accessDeniedPage("/")	//액세스 거부 페이지
+			.exceptionHandling().accessDeniedPage("/")
 			.and().build();
 	}
 	

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mat.enums.Role;
 import com.mat.model.Member;
 import com.mat.repository.MemberRepository;
-import com.mat.service.PostService;
 
 @Controller
 @RequestMapping("/sub")
@@ -19,8 +18,6 @@ public class Sub {
 	private MemberRepository repository;
 	@Autowired
 	private PasswordEncoder encoder;
-	@Autowired
-	private PostService postSVC;
 	
 	@GetMapping("/mem1")
 	public void mem1() {

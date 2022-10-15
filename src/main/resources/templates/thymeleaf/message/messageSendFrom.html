@@ -31,12 +31,11 @@
 		}
 	</script>
 	<style type="text/css">
-		body{
-			background-color:rgb(253, 238, 220);
-		}
+		body{background-color:rgb(253, 238, 220);}
 	</style>
 </head>
 <body>
+	<!-- nav, 사이드메뉴 -->
 	<th:block th:replace="thymeleaf/layout/topLayout :: topLayout">
 	   <th:block th:fragment="content"></th:block>
 	</th:block>
@@ -44,6 +43,7 @@
 	   <th:block th:fragment="content"></th:block>
 	</th:block>
 	
+	<!-- 메세지 입력 폼 -->
 	<div style="width:1000px; float: left; padding: 30px;">
 	<form id="messageInfo" method="post" th:object="${message}">
 		<div class="mb-3">

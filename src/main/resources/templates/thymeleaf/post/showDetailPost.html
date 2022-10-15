@@ -12,22 +12,16 @@
 			margin: 100px auto;
 			padding: 5px;
 		}
-		body{
-			background-color:rgb(253, 238, 220);
-		}
-		#fir_table{
-			color:white;
-		}
-		td{
-			border: none;
-		}
-		#fir_td{
-			
-			background-color:rgb(227, 139, 41);
-		}
-		#fir_tr{
-			background-color:rgb(255, 216, 169);
-		}
+		body{background-color:rgb(253, 238, 220);}
+		
+		#fir_table{color:white;}
+		
+		td{border: none;}
+		
+		#fir_td{background-color:rgb(227, 139, 41);}
+		
+		#fir_tr{background-color:rgb(255, 216, 169);}
+		
 		#goList_btn{
 			color: rgb(247, 226, 214);
 			font-weight:bold;
@@ -45,56 +39,56 @@
 			overflow:visible;
 			text-overflow:ellipsis;
 		}
-		#fir_img{
-			width: 50%;
-		}
+		#fir_img{width: 50%;}
 	</style>
 </head>
 <body>
+	<!-- nav -->
 	<th:block th:replace="thymeleaf/layout/topLayout :: topLayout">
 	   	<th:block th:fragment="content"></th:block>
 	</th:block>
 	
-		<div class="container-sm" id="box">
-			<table class="table" id="fir_table">
-			  <thead>
-			    <tr>
-			    </tr>
-			  </thead>
-			  <tbody>
-			    <tr id="fir_td">
-			      <td style="width: 25%">제목</td>
-			      <td th:text="${post.title}"></td>
-			      <td></td>
-			    </tr>
-			    <tr id="fir_td">
-			      <td style="width: 25%">작성자</td>
-			      <td th:text="${post.writer}"></td>
-			      <td></td>
-			    </tr>
-			    <tr id="fir_td">
-			      <td style="width: 25%">위치</td>
-			      <td th:text="${post.location}"></td>
-			      <td></td>
-			    </tr>
-			    <tr id="fir_td">
-			      <td style="width: 25%"></td>
-			      <td th:text="${post.wdate}"></td>
-			      <td></td>
-			    </tr>
-			    
-			   <tr id="fir_tr">
-			      <td colspan="3" >
-			      	<textarea id="fir_textarea" rows="10"  readonly="readonly" th:text="${post.contents}"></textarea>
-			      </td>
-			    </tr>
-			  </tbody>
-			</table>
-			<div th:each=" imgs : ${post.postImages}">
-				<div th:each=" fpath : ${imgs.fpath}">
-					<img id="fir_img" th:src="@{/postImages/} + ${fpath}"/>	
-				</div>
+	<!-- 게시물 상세보기 -->
+	<div class="container-sm" id="box">
+		<table class="table" id="fir_table">
+		  <thead>
+		    <tr>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr id="fir_td">
+		      <td style="width: 25%">제목</td>
+		      <td th:text="${post.title}"></td>
+		      <td></td>
+		    </tr>
+		    <tr id="fir_td">
+		      <td style="width: 25%">작성자</td>
+		      <td th:text="${post.writer}"></td>
+		      <td></td>
+		    </tr>
+		    <tr id="fir_td">
+		      <td style="width: 25%">위치</td>
+		      <td th:text="${post.location}"></td>
+		      <td></td>
+		    </tr>
+		    <tr id="fir_td">
+		      <td style="width: 25%"></td>
+		      <td th:text="${post.wdate}"></td>
+		      <td></td>
+		    </tr>
+		    
+		   <tr id="fir_tr">
+		      <td colspan="3" >
+		      	<textarea id="fir_textarea" rows="10"  readonly="readonly" th:text="${post.contents}"></textarea>
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+		<div th:each=" imgs : ${post.postImages}">
+			<div th:each=" fpath : ${imgs.fpath}">
+				<img id="fir_img" th:src="@{/postImages/} + ${fpath}"/>	
 			</div>
 		</div>
+	</div>
 </body>
 </html>

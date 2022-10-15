@@ -31,21 +31,15 @@
 			margin: 100px auto;
 			padding: 5px;
 		}
-		body{
-			background-color: rgb(240, 235, 227);
-		}
-		#fir_table{
-			color: rgb(247, 226, 214);
-		}
-		td{
-			border: none;
-		}
-		#fir_td{
-			
-			background-color: rgb(87, 111, 114);
-		}
-		#fir_tr{
-			background-color: rgb(125, 157, 156);
+		body{background-color: rgb(240, 235, 227);}
+		
+		#fir_table{color: rgb(247, 226, 214);}
+		
+		td{border: none;}
+		
+		#fir_td{background-color: rgb(87, 111, 114);}
+		
+		#fir_tr{background-color: rgb(125, 157, 156);
 		}
 		#goList_btn{
 			color: rgb(247, 226, 214);
@@ -63,15 +57,13 @@
 			overflow:visible;
 			text-overflow:ellipsis;
 		}
-		#fir_img{
-			width: 50%;
-		}
-		#img_del_btn{
-			border: none;
-		}
+		#fir_img{width: 50%;}
+		
+		#img_del_btn{border: none;}
 	</style>
 </head>
 <body>
+	<!-- nav, 사이드메뉴 -->
 	<th:block th:replace="thymeleaf/layout/topLayout :: topLayout">
 	   <th:block th:fragment="content"></th:block>
 	</th:block>
@@ -79,6 +71,7 @@
 	   <th:block th:fragment="content"></th:block>
 	</th:block>
 	
+	<!-- 게시물 수정정보 입력 -->
 	<form id="postInfo" th:object="${post}" method="post" action="/member/post/savePostInfo" enctype="multipart/form-data">
 		 <input type="hidden" th:field="*{num}">
 		 

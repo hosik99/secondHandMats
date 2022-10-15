@@ -3,14 +3,11 @@ package com.mat.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mat.model.Message;
-import com.mat.model.Post;
 import com.mat.repository.MesaageRepository;
 
 @Service
@@ -25,7 +22,7 @@ public class MesaageService {
 		return saved.getNum()!= null;
 	}
 	
-	//receiver에게 온 모든 메세지
+	//유저에게 온 모든 메세지
 	public List<Message> showAllMsg(String receiver) {
 		List<Message> messages = messageRPS.findAllByReceiver(receiver);
 		return messages;

@@ -1,14 +1,12 @@
 package com.mat.controller;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mat.etc.ViewHref;
 import com.mat.model.Member;
 import com.mat.service.SignService;
 
@@ -25,8 +22,9 @@ import com.mat.service.SignService;
 @RequestMapping("/sign")
 public class SignUpController {
 	
-	@Autowired
-	private ViewHref viewHref;
+	private final String SIGNUP_FORM = "thymeleaf/signUp/signUpForm";
+	private final String SIGNUP_SUCCESS = "thymeleaf/signUp/etc/signUpSuccess";
+	
 	@Autowired
 	private SignService svc;
 	
@@ -34,14 +32,13 @@ public class SignUpController {
 	@GetMapping("/signUp/form")
 	public String signUpForm(Model model) {
 		model.addAttribute("member",new Member());
-		return viewHref.getSignUpForm();
+		return SIGNUP_FORM;
 	}
 	
 	//회원가입 
 	@PostMapping("/signUp")
 	public ResponseEntity<Boolean> signUpForm(Member member) {
 		boolean saved = svc.addUser(member);
-//		return viewHref.getSignUpSuccess();
 		return new ResponseEntity<Boolean>(saved, HttpStatus.OK); 
 	}
 		
@@ -61,7 +58,6 @@ public class SignUpController {
 	        if(randomCode!=null) session.removeAttribute("randomCode");
 	        check = true;
 		}
-		System.out.println("check: "+check);
 		return new ResponseEntity<Boolean>(check, HttpStatus.OK); 
 	}
 	
@@ -69,13 +65,12 @@ public class SignUpController {
 	@PostMapping("/exists/memberId")
 	@ResponseBody
 	public Boolean existsByMemberId(@RequestParam("memberId")String memberId) {
-		System.out.println("memberId: "+memberId);
 		return svc.existsByMemberId(memberId);
 	}
 	
 	//로그인 성공 시 보여질 페이지로 이동
 	@GetMapping("/signUp/success")
 	public String signUpSuccess() {
-		return viewHref.getSignUpSuccess();
+		return SIGNUP_SUCCESS;
 	}
 }
