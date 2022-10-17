@@ -20,7 +20,7 @@ import lombok.Setter;
 public class Member { 
 	
 	@Id 
-	@Column(name="MEMBER_ID")
+	@Column(name="MEMBER_ID",length = 12)
 	@NotEmpty
 	private String memberId;
 	

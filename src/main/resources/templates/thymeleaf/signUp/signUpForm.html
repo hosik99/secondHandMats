@@ -98,16 +98,18 @@
 			
 			if($fromData.length){
 				$fromData.validate({
-					ignore: ".ignore",  //ignore클래스는 유효성 검사를 하지 않음
+					ignore: ".ignore",
 					
 					rules:{
 						  memberId: {
 				              required: true,
 				              noSpace: true,
+				              maxlength: 12
 				          },
 				          name: {
 				              required: true,
 				              noSpace: true,
+				              maxlength: 20
 				          },
 				          password: {
 				              required: true,
@@ -129,6 +131,7 @@
 				          },
 				          name: {
 				              required: '필수 항목입니다.',
+				              maxlength: '이름을 다시 확인해주세요.'
 				          },
 				          password: {
 				              required: '필수 항목입니다.',
@@ -185,7 +188,7 @@
 	 
 	<form id="fromData">
 		<div class="input-group mb-3">
-		  <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디">
+		  <input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디 (최대 12글자)">
 		  <button class="btn btn-outline-secondary" type="button" onclick='existsByMemberId();'>아이디 확인</button>
 		</div>
 		<div class="mb-3">

@@ -30,11 +30,15 @@ public class Post {
 	private Long num;
 	
 	@NotEmpty
+	@Column(length = 30)
 	private String title;
 	
 	@NotEmpty
+	@Column(length = 30)
 	private String location;
+	
 	@NotEmpty
+	@Column(length = 500)
 	private String contents;
 	
 	private String writer;

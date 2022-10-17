@@ -26,9 +26,11 @@ public class Message {
 	private String sender;
 	
 	@NotEmpty
+	@Column(length = 12)
 	private String receiver;
 	
 	@NotEmpty
+	@Column(length = 30)
 	private String title;
 	
 	@NotEmpty
