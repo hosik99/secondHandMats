@@ -30,7 +30,6 @@ public class PostService {
 	public Long savePostInfo(Post post,MultipartFile[] mfiles) {
 		
 		List<PostImages> imageList = addFileToList(mfiles,post);
-		post.
 		Post post_1 = postRepository.save(post);
 		if(imageList!=null) imgRepository.saveAll(imageList);
 		return post_1.getNum();
@@ -101,7 +100,6 @@ public class PostService {
 				PostImages image = new PostImages();
 				image.setFpath(fname_changed);
 				image.setPost(post);
-				System.out.println("filePath: "+filePath);
 				mfiles[i].transferTo(new File(filePath));
 				
 				imageList.add(image);
