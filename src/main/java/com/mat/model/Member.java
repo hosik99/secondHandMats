@@ -33,6 +33,8 @@ public class Member {
 	@NotEmpty
 	private String memberEmail;
 	
+	/*EnumType.ORDINAL : enum 순서 값을 DB에 저장
+	  EnumType.STRING : enum 이름을 DB에 저장*/
 	@Enumerated(EnumType.STRING)
 	private Role role = Role.ROLE_MEMBER;
 	

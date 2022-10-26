@@ -36,7 +36,7 @@ public class PostController {
 	private final String SHOW_POSTS_PAGE = "thymeleaf/post/showPosts";
 	private final String SHOW_POST_DETAIL_PAGE = "thymeleaf/post/showDetailPost";
 
-	private List<String> imgTypeList = new ArrayList<>(Arrays.asList("jpg","png","jfif"));
+	
 	
 	@Autowired
 	private PostService svc;
@@ -63,7 +63,7 @@ public class PostController {
 		Long saved = svc.savePostInfo(post,mfiles);
 		
 		if(saved!=null) return SAVE_SUCCESS_PAGE;
-		throw new Exception("Post JPA 저장 에러발생");
+		throw new Exception("Post JPA 저장 에러발생");	//500에러 발생
 	}
 	
 	//모든 게시물 가져오기
@@ -90,7 +90,7 @@ public class PostController {
 		return SHOW_POST_DETAIL_PAGE;
 	}
 	
-	
+	private List<String> imgTypeList = new ArrayList<>(Arrays.asList("jpg","png","jfif"));
 	//파일 형식 확인
 	private boolean checkFileType(MultipartFile[] mfiles) {
 		for(MultipartFile file : mfiles) {

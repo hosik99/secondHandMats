@@ -48,7 +48,7 @@ public class Post {
 	@OneToMany(mappedBy = "post",fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<PostImages> postImages = new ArrayList<PostImages>();
 	
-	public void addMember(PostImages postImage) {
+	public void addImage(PostImages postImage) {
 		this.postImages.add(postImage);
 		if(postImage.getPost()!=this) postImage.setPost(this);
 	}

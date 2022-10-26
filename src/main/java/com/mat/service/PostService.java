@@ -28,8 +28,10 @@ public class PostService {
 	
 	//게시물 저장
 	public Long savePostInfo(Post post,MultipartFile[] mfiles) {
-		Post post_1 = postRepository.save(post);
+		
 		List<PostImages> imageList = addFileToList(mfiles,post);
+		post.
+		Post post_1 = postRepository.save(post);
 		if(imageList!=null) imgRepository.saveAll(imageList);
 		return post_1.getNum();
 	}

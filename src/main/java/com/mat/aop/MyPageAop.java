@@ -16,8 +16,8 @@ import com.mat.service.MesaageService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Aspect	
-@Configuration 
+@Aspect	//공통 기능과 PointCut을 설정한다
+@Configuration //설정파일을 만들기 위한 애노테이션 or Bean을 등록하기 위한 애노테이션 
 public class MyPageAop {
 	
 	@Autowired
